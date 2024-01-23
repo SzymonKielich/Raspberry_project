@@ -27,15 +27,16 @@ def create_database():
 def insert_database():
     connention = sqlite3.connect("items.db")
     cursor = connention.cursor()
-    cursor.execute("INSERT INTO items VALUES (?,?,?,?)",
-        (1, "Krew", 3, 18))
-    cursor.execute("INSERT INTO items VALUES (?,?,?,?)",
-        (2, "Strzykawki", 15, 25))
+    cursor.execute("INSERT INTO items (name, temp_min, temp_max) VALUES (?,?,?)",
+        ("Krew 5l", 3, 18))
+    cursor.execute("INSERT INTO items (name, temp_min, temp_max) VALUES (?,?,?)",
+        ("Strzykawki 100 szt", 15, 25))
     connention.commit()
     connention.close()
+    print("Inserted to database")
 
 
 
 if __name__ == "__main__":
-    create_database()
+    #create_database()
     insert_database()
