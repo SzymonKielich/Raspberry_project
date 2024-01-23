@@ -53,7 +53,7 @@ def bme280_pressure():
     return bme280.pressure
 
 def tempRead():
-    client.publish("temp", str(bme280_temperature()))
+    client.publish("raspberry1/temp", str(bme280_temperature()))
     time.sleep(1)
 
 def buttonPressedCallback(channel):
