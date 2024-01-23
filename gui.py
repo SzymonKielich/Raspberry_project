@@ -9,17 +9,25 @@ temperature = 22
 staff = 0
 
 def update_labels(temp_label, staff_label):
-    global temperature
-    temperature = random.randrange(20, 24)
     temp_label.config(text=f"Temperatura: {temperature}\N{DEGREE SIGN}C")
 
-    global staff
-    rand = random.randrange(0, 4)
-    if rand == 0: staff += 1
-    elif rand == 1 and staff != 0: staff -= 1
     staff_label.config(text=f"Liczba pracowników: {staff}")
 
     window.after(1000, update_labels, temp_label, staff_label)
+
+def update_stats():
+    global temperature
+    temperature = random.randrange(20, 24)
+
+    global staff
+    rand = random.randrange(0, 4)
+    if rand == 0:
+        staff += 1
+    elif rand == 1 and staff != 0:
+        staff -= 1
+
+    window.after(500, update_stats)
+
 
 def on_select(event):
     global selected_item_index
@@ -126,6 +134,7 @@ def create_main_window():
     temp_label.pack()
     staff_label.pack()
 
+    update_stats()
     update_labels(temp_label, staff_label)  # Rozpocznij aktualizację godziny
     display_items_list(listbox)  # Wyświetl listę przedmiotów
 
