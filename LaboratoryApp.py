@@ -8,7 +8,7 @@ import names
 class LaboratoryApp:
     def __init__(self):
         self.selected_item_index = None
-        self.temperature = 22
+        self.temperature = 22.1
         self.staff = ["1234567890123456", "5555666677778888"]
 
 

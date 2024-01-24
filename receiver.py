@@ -2,7 +2,7 @@
 import sqlite3
 
 import paho.mqtt.client as mqtt
-from gui import LaboratoryApp
+from LaboratoryApp import LaboratoryApp
 
 import time
 

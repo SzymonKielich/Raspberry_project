@@ -2,7 +2,7 @@
 import sqlite3
 from time import sleep
 
-from gui import LaboratoryApp
+from LaboratoryApp import LaboratoryApp
 
 
 # Press Shift+F10 to execute it or replace it with your code.
