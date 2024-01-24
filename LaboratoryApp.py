@@ -9,8 +9,7 @@ class LaboratoryApp:
     def __init__(self):
         self.selected_item_index = None
         self.temperature = 22
-        self.staff = ["Łukasz Wasilewski", "Szymon Kielich"]
-        self.create_main_window()
+        self.staff = ["1234567890123456", "5555666677778888"]
 
 
     def update_labels(self, temp_label, staff_label):
@@ -114,7 +113,16 @@ class LaboratoryApp:
         self.window.after(1000, self.display_items_list)
 
     def display_staff_list(self):
-        staff_list = "\n".join(self.staff)
+        connection = sqlite3.connect("items.db")
+        cursor = connection.cursor()
+
+        query = "SELECT user_name FROM users WHERE card_number IN ({})".format(', '.join(['?'] * len(self.staff)))
+        cursor.execute(query, tuple(self.staff))
+
+        staff_names = [row[0] for row in cursor.fetchall()]
+        connection.close()
+
+        staff_list = "\n".join(staff_names)
         staff_dialog = tkinter.Toplevel(self.window)
         staff_dialog.title("Lista Pracowników")
 
@@ -149,7 +157,7 @@ class LaboratoryApp:
         staff_button.grid(row=4, column=1, sticky="w")
 
 
-        self.update_stats()
+        #self.update_stats()
         self.update_labels(temp_label, staff_label)
         self.display_items_list()
 
@@ -159,3 +167,4 @@ class LaboratoryApp:
 
 if __name__ == "__main__":
     app = LaboratoryApp()
+    app.create_main_window()

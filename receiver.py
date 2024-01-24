@@ -40,11 +40,11 @@ def user_authorization(str_card_number):
 
 def update_staff_in_lab(card_number, name):
     
-    if name in gui.staff:
-        gui.staff.remove(name)
+    if card_number in gui.staff:
+        gui.staff.remove(card_number)
         client.publish("auth", "Goodbye" +"&"+ name+"&"+card_number)
     else:
-        gui.staff.append(name)
+        gui.staff.append(card_number)
         client.publish("auth", "Hello" + "&" + name+"&"+card_number)
 def connect_to_broker():
     client.connect(broker)
@@ -58,9 +58,11 @@ def disconnect_from_broker():
     client.disconnect()
 
 def run_receiver():
-    connect_to_broker()
     global gui
     gui = LaboratoryApp()
+
+    connect_to_broker()
+    gui.create_main_window()
     disconnect_from_broker()
 
 if __name__ == "__main__":

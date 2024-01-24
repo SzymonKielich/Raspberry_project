@@ -24,6 +24,8 @@ dt = datetime.now()
 def connect_to_broker():
     client.connect(broker)
     client.publish("info", "Client connected")
+    client.on_message = process_message
+    client.loop_start()
     client.subscribe("auth")
 
 
@@ -72,7 +74,7 @@ def rfidRead():
                     num += uid[i] << (i * 8)
                 dt = datetime.now()
                 client.publish("raspberry2/card", str(num))
-
+                buzzer()
                 prev_card = True
                 dt = datetime.now()
     else:
