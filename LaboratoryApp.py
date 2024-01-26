@@ -2,33 +2,33 @@ import random
 import sqlite3
 import tkinter
 from tkinter import simpledialog, messagebox
-import names
+# import names
 
 
 class LaboratoryApp:
     def __init__(self):
         self.selected_item_index = None
         self.temperature = 22.1
-        self.staff = ["1234567890123456", "5555666677778888"]
+        self.staff = []
 
 
     def update_labels(self, temp_label, staff_label):
-        temp_label.config(text=f"Temperatura: {self.temperature}\N{DEGREE SIGN}C")
+        temp_label.config(text=f"Temperatura: {round(self.temperature, 4)}\N{DEGREE SIGN}C")
 
         staff_label.config(text=f"Liczba pracowników: {len(self.staff)}")
 
         self.window.after(1000, lambda: self.update_labels(temp_label, staff_label))
 
-    def update_stats(self):
-        self.temperature = random.randrange(20, 24)
+    # def update_stats(self):
+    #     self.temperature = random.randrange(20, 24)
 
-        rand = random.randrange(0, 10)
-        if rand == 0:
-            self.staff.append(names.get_full_name(gender='male'))
-        elif rand == 1 and len(self.staff) != 0:
-            self.staff.pop(random.randrange(0, len(self.staff)))
+    #     rand = random.randrange(0, 10)
+    #     if rand == 0:
+    #         self.staff.append(names.get_full_name(gender='male'))
+    #     elif rand == 1 and len(self.staff) != 0:
+    #         self.staff.pop(random.randrange(0, len(self.staff)))
 
-        self.window.after(750, lambda: self.update_stats())
+    #     self.window.after(750, lambda: self.update_stats())
 
     def on_select(self, event):
         widget = event.widget
@@ -101,7 +101,7 @@ class LaboratoryApp:
 
         for i, item in enumerate(items):
             temp_min, temp_max = item[2], item[3]
-            formatted_item = f"{item[0]}: {item[1]} \t {temp_min} - {temp_max} \N{DEGREE SIGN}C"
+            formatted_item = f"{item[0]}: {item[1]}        {temp_min} - {temp_max} \N{DEGREE SIGN}C"
             if temp_min <= self.temperature <= temp_max:
                 self.listbox.insert(tkinter.END, formatted_item)
             else:

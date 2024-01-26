@@ -16,7 +16,7 @@ import adafruit_bme280.advanced as adafruit_bme280
 # The terminal ID - can be any string.
 terminal_id = "T0"
 # The broker name or IP address.
-broker = "localhost"
+broker = "10.108.33.126"
 # The MQTT client.
 client = mqtt.Client()
 
@@ -62,6 +62,7 @@ def buttonPressedCallback(channel):
     print("Red button pressed")
 
 def run_sender():
+    bme280_config()
     connect_to_broker()
     GPIO.add_event_detect(buttonRed, GPIO.FALLING, callback=buttonPressedCallback, bouncetime=200)
 

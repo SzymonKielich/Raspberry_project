@@ -6,7 +6,7 @@ from LaboratoryApp import LaboratoryApp
 
 import time
 
-broker = "localhost"
+broker = "10.108.33.126"
 
 # The MQTT client.
 client = mqtt.Client()
@@ -18,7 +18,8 @@ def process_message(client, userdata, message):
 
     elif message.topic == "raspberry2/card":
         message_decoded = (str(message.payload.decode("utf-8")))
-        user_authorization(message_decoded[0])
+        print(message_decoded)
+        user_authorization(message_decoded)
         # format: str(num))
 
     # message_decoded = (str(message.payload.decode("utf-8")))
@@ -30,6 +31,7 @@ def user_authorization(str_card_number):
     cursor = connection.cursor()
     cursor.execute("SELECT user_name FROM users WHERE card_number = ?", (str_card_number,))
     result = cursor.fetchone()
+    print(result)
 
     connection.close()
     if result:
@@ -46,6 +48,7 @@ def update_staff_in_lab(card_number, name):
     else:
         gui.staff.append(card_number)
         client.publish("auth", "Hello" + "&" + name+"&"+card_number)
+        
 def connect_to_broker():
     client.connect(broker)
     client.on_message = process_message

@@ -39,9 +39,9 @@ def insert_database():
     cursor.execute("INSERT INTO items (name, temp_min, temp_max) VALUES (?,?,?)",
         ("Strzykawki 100 szt", 15, 25))
     sample_users = [
-        ('1234567890123456', 'Jacenty Kowalski'),
-        ('9876543210987654', 'Anna Janiak'),
-        ('5555666677778888', 'Mariusz Arbuz')
+        ('507384896822', 'Łukasz Wasilewski'),
+        ('825215139579', 'Szymon Kielich'),
+        ('123456789012', 'Krzysztof Kononowicz')
     ]
 
     cursor.executemany("INSERT INTO users (card_number, user_name) VALUES (?, ?)", sample_users)

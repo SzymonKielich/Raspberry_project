@@ -12,7 +12,7 @@ from datetime import datetime
 # The terminal ID - can be any string.
 terminal_id = "T0"
 # The broker name or IP address.
-broker = "localhost"
+broker = "10.108.33.126"
 # The MQTT client.
 client = mqtt.Client()
 
@@ -45,14 +45,17 @@ def process_message(client, userdata, message):
 
     image = Image.new("RGB", (disp.width, disp.height), "WHITE")
     draw = ImageDraw.Draw(image)
-    fontSmall = ImageFont.truetype('./lib/oled/Font.ttf', 18)
+    fontSmall = ImageFont.truetype('./lib/oled/Font.ttf', 10)
     # format: "Hello" +"&"+ name+"&"+card_number
     message_decoded = (str(message.payload.decode("utf-8"))).split("&")
+    print(message_decoded)
     if message_decoded[0] == "Unauthorized":
         draw.text((5, 20), f"Unauthorized access!", font=fontSmall, fill="BLACK")
     else:
-        draw.text((5, 5), f"{message_decoded[0]} {message_decoded[1]}", font=fontSmall, fill="BLACK")
-        draw.text((5, 35), f"Card UID: {message_decoded[2]}", font=fontSmall, fill="BLACK")
+        draw.text((5, 5), f"{message_decoded[0]}", font=fontSmall, fill="BLACK")
+        draw.text((5, 20), f"{message_decoded[1]}", font=fontSmall, fill="BLACK")
+        draw.text((5, 35), f"Card UID:", font=fontSmall, fill="BLACK")
+        draw.text((5, 50), f"{message_decoded[2]}", font=fontSmall, fill="BLACK")
         buzzer()
 
 
